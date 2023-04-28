@@ -6,15 +6,15 @@
 		if(!empty($result)){
 		echo ' <div class="nav-right-down-wrap"><ul> ';
 		foreach ($result as $user) {
-			echo '		  	
+			echo '	
 					<li>
 				  		<div class="nav-right-down-inner trend">
 							<div class="nav-right-down-left">
-								<a href="'.BASE_URL.$user->username.'"><img src="'.BASE_URL.$user->profileImage.'"></a>
+								<a href="'.BASE_URL.'profile.php?username='.$user->username.'"><img src="'.BASE_URL.$user->profileImage.'"></a>
 							</div>
 							<div class="nav-right-down-right">
 								<div class="nav-right-down-right-headline">
-									<a href="'.BASE_URL.$user->username.'"><b>'.$user->screenName.'</b></a><br><span class="text-muted">@'.$user->username.'</span>
+									<a href="'.BASE_URL.'profile.php?username='.$user->username.'"><b>'.$user->screenName.'</b></a><br><span class="text-muted">@'.$user->username.'</span>
 								</div>
 								<div class="nav-right-down-right-body">
 								 
