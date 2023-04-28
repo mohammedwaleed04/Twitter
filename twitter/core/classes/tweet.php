@@ -127,7 +127,75 @@ class Tweet extends User{
 			      </div>';
 	    }
 	}
-	public function tweets($user_id, $num){
+	public function tweetsVisitor(){
+	    $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` ORDER BY `tweetID` DESC");
+	    $stmt->execute();
+	    $tweets = $stmt->fetchAll(PDO::FETCH_OBJ);
+	    foreach ($tweets as $tweet) {
+		  echo '
+		  <div class="all-tweet">
+		  	<div class="t-show-wrap">
+				<div class="t-show-popup" data-tweet="'.$tweet->tweetID.'">
+					<div class="t-show-head">
+						<div class="t-s-head-content ">
+							<div class="t-show-img">
+								<img src="'.$tweet->profileImage.'"/>
+							</div>
+							<div class="t-h-c-name media-body">
+								<span><a href="'.$tweet->username.'">'.$tweet->screenName.'</a></span>
+								<span>@'.$tweet->username.'</span>
+								<span>'.$this->timeAgo($tweet->postedOn).'</span>
+							</div>
+							<div class="t-h-c-dis">
+								'.$this->getTweetLinks($tweet->status).'
+							</div>
+						</div>
+					</div>
+					'.((!empty($tweet->tweetImage)) ?'
+							<div class="t-show-body">
+								<div class="t-s-b-inner">
+									<div class="t-s-b-inner-in">
+										<img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
+									</div>
+								</div>
+							</div>
+				' : '').'
+				</div>
+				<div class="t-show-footer">
+					<div class="t-s-f-right">
+						<ul>
+							<li><button style="outline:none;"><i class="fa fa-comment" aria-hidden="true"></i></button></li>
+							<li>'.((isset($retweet['retweetID']) ? $tweet->tweetID === $retweet['retweetID'] : '') ? 
+								'<button class="retweeted" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'" style="outline:none;"><i class="fa fa-retweet" aria-hidden="true" style="outline:none;"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>' : 
+								'<button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'" style="outline:none;"><i class="fa fa-retweet" aria-hidden="true"></i><span class="retweetsCount">'.(($tweet->retweetCount > 0) ? $tweet->retweetCount : '').'</span></button>').'
+							</li>
+							<li>'.((isset($likes['likeOn']) ? $likes['likeOn'] === $tweet->tweetID : '') ? 
+								'<button class="unlike-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'" style="outline:none;"><i class="fa fa-heart" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>' : 
+								'<button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'" style="outline:none;"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter">'.(($tweet->likesCount > 0) ? $tweet->likesCount : '' ).'</span></button>').'
+							</li>
+						</ul>
+					</div>
+				</div>
+		  	</div>
+		  </div>';
+	    }
+	}
+
+	public function changeId($username){
+		$stmt = $this->pdo->prepare('SELECT `user_id` FROM `users` WHERE `username` = :username');
+		$stmt->bindParam(':username', $username, PDO::PARAM_STR);
+		$stmt->execute();
+		$user = $stmt->fetch(PDO::FETCH_OBJ);
+		$_SESSION['user_id'] = $user->user_id;
+		return $_SESSION['user_id'];
+	}
+
+	public function tweets($username, $num){
+		$stmt = $this->pdo->prepare('SELECT `user_id` FROM `users` WHERE `username` = :username');
+		$stmt->bindParam(':username', $username, PDO::PARAM_STR);
+		$stmt->execute();
+		$user = $stmt->fetch(PDO::FETCH_OBJ);
+		$user_id = $user->user_id;
 	    $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `tweetBy` = :user_id AND `retweetID` = '0' ORDER BY `tweetID` DESC LIMIT :num");
 		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
 	    $stmt->bindParam(":num", $num, PDO::PARAM_INT);
