@@ -1,7 +1,7 @@
 <?php
 	include 'core/init.php';
 	if($getFromU->loggedIn() === true){
-	//	header('Location: home.php');
+		header('Location: home.php');
 	}
 
 ?>
@@ -32,7 +32,7 @@
     <div class="preloader" id="preloader">
             <div id="loader"></div>
     </div>
-    <?php include 'includes/login.php';?>
+    <?php header('Location: visitor.php');?>
     <script>
         window.onload = function() {
             var preloader = document.getElementsByClassName('preloader')[0];

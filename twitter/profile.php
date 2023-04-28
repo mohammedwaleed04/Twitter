@@ -104,7 +104,7 @@ include 'core/init.php';
 
                     <!--Tweet SHOW WRAPPER-->
                     <div class='tweets'>
-                        <?php $getFromT->tweets( $user_id, 100 , 'profile');
+                        <?php $getFromT->tweets( $username, 100 , 'profile');
                         ?>
                     </div>
                     <!--TWEETS SHOW WRAPPER-->

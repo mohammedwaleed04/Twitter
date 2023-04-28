@@ -8,6 +8,20 @@ if ( $getFromU->loggedIn() === false ) {
     header( 'Location: '.BASE_URL.'index.php' );
 }
 
+if($_SESSION['dark_mode'] === true){
+    ?> <style>
+        body
+        {
+            background:black;
+            background-attachment:fixed;
+            color:white;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 25%;
+        }
+    </style>
+<?php }
+
 if ( isset( $_POST['tweet'] ) ) {
     $status = $getFromU->checkinput( $_POST['status'] );
     $tweetImage = '';
@@ -146,9 +160,6 @@ if ( isset( $_POST['tweet'] ) ) {
             </div><!-- in left wrap-->
         </div><!-- in center end -->
     </div>
-
-    
-
     <?php require 'right-sidebar.php' ?>
 
     <script type='text/javascript' src='<?php echo BASE_URL; ?>assets/js/follow.js'></script>

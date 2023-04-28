@@ -41,7 +41,6 @@
         function myFunction() { 
             document.getElementById("demo").style = 'display: block; position: absolute; box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px; background-color: rgb(0, 0, 0); border-radius: 8px;'
         }
-        // if()
     </script>
 </div>
     </body>
