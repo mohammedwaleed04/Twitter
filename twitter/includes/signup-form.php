@@ -94,9 +94,16 @@ if(isset($_POST['signup'])){
                     <input class="new-btn m-auto mt-5" type="submit" name="signup" Value="Signup"><br>
                 </form>
             </div><br>
-            <p>Already have an account? <a href="../index.php">Login</a></p>
+            <p>Already have an account? <a href="login.php">Login</a></p>
         </div>
     </body>
+<script type="text/javascript">
+        setTimeout(function() {
+            // Closing the alert 
+            $('#alert').alert('close');
+        }, 3500);
+</script>
+</form>
 <script type="text/javascript">
         setTimeout(function() {
             // Closing the alert 

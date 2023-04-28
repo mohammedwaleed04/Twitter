@@ -22,7 +22,7 @@ if(isset($_POST['next'])){
       $error = "Username is already taken!";
     }else{
       $getFromU->update('users', $user_id, array('username' => $username));
-	  header('Location: ../index.php');
+	  header('Location: login.php');
     }
   }else{
     $error = "Please enter your username to choose";
@@ -34,7 +34,7 @@ if(isset($_POST['next'])){
   	<head>
   		<title>twitter</title>
   		<meta charset="UTF-8" />
-		<link rel="shortcut icon" type="image/x-icon" href="./assets/images/bird.svg">
+		<link rel="shortcut icon" type="image/x-icon" href="../assets/images/bird.svg">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    		<link rel="stylesheet" href="../assets/css/style-complete.css"/>
